@@ -2,8 +2,8 @@
 local space_cultivator_recipe = {
     type = "recipe",
     name = "space-cultivator",
-    localised_name = "Space Cultivator",
-    localised_description = "A specialised facility for propagating plants in space!",
+    localised_name = {"recipe-name.space-cultivator"},
+    localised_description = {"recipe-description.space-cultivator"},
     category = "organic-or-assembling",
     surface_conditions =
     {
@@ -31,6 +31,8 @@ local space_cultivator_item = table.deepcopy(data.raw["item"]["biochamber"])
 space_cultivator_item.name = "space-cultivator"
 space_cultivator_item.place_result = "space-cultivator"
 space_cultivator_item.icon = "__quality-seeds-fork__/graphics/icons/space-cultivator.png"
+space_cultivator_item.localised_name = {"item-name.space-cultivator"}
+space_cultivator_item.localised_description = {"item-description.space-cultivator"}
 space_cultivator_item.order = "a[agricultural-tower]-b[greenhouse]-z[space-cultivator]"
 
 local space_cultivator = table.deepcopy(data.raw["assembling-machine"]["biochamber"])
@@ -200,8 +202,8 @@ space_cultivator.fluid_boxes =
     }
 }
 space_cultivator.icon = "__quality-seeds-fork__/graphics/icons/space-cultivator.png"
-space_cultivator.localised_name = "Space Cultivator"
-space_cultivator.localised_description = "A specialised facility for propagating plants in space!"
+space_cultivator.localised_name = {"entity-name.space-cultivator"}
+space_cultivator.localised_description = {"entity-description.space-cultivator"}
 space_cultivator.fluid_boxes_off_when_no_fluid_recipe = true
 space_cultivator.energy_source.effectivity = 2.5
 
@@ -209,7 +211,8 @@ space_cultivator.energy_source.effectivity = 2.5
 local space_cultivator_recipe_recycling = {
   type = "recipe",
   name = "space-cultivator-recycling",
-  localised_name = "Space cultivator recycling",
+  localised_name = {"recipe-name.space-cultivator-recycling"},
+  localised_description = {"recipe-description.space-cultivator-recycling"},
   icon = nil,
   --subgroup = item.subgroup,
   icons = {

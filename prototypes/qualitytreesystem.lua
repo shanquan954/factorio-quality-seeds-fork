@@ -132,6 +132,14 @@ local function create_quality_plant(plant_prototype, seed_prototype)
   end
 
   local seed_name = seed_prototype.name
+  local plant_label = plant_prototype.localised_name or { "entity-name." .. plant_name }
+  if type(plant_label) == "string" then
+    plant_label = { "", plant_label }
+  end
+  local seed_label = seed_prototype.localised_name or { "item-name." .. seed_name }
+  if type(seed_label) == "string" then
+    seed_label = { "", seed_label }
+  end
 
   -- Create a new Collision Layer, for the Greenhouse to use.
   local recipe_category = {
@@ -271,9 +279,8 @@ local function create_quality_plant(plant_prototype, seed_prototype)
     }
   }
   cultivator.icons = cultivator_icons
-  cultivator.localised_name = { "?", { "", { "entity-name." .. plant_name }, " Cultivator" }, "Tree Cultivator" }
-  cultivator.localised_description = { "?", { "", "A specialised facility for propagating ", { "entity-name." .. plant_name } },
-    "A specialised facility for propagating trees." }
+  cultivator.localised_name = { "entity-name.cultivator", plant_label }
+  cultivator.localised_description = { "entity-description.cultivator", plant_label }
 
   cultivator.fluid_boxes_off_when_no_fluid_recipe = false
   cultivator.collision_mask = { layers = { object = true, train = true, is_object = true, is_lower_object = true } } -- collide just with object-layer and train-layer which don't collide with water, this allows us to build on water for water plants like slipstacks.
@@ -290,8 +297,8 @@ local function create_quality_plant(plant_prototype, seed_prototype)
   local cultivator_recipe = {
     type = "recipe",
     name = cultivator_name,
-    localised_name = { "?", { "", { "entity-name." .. plant_name }, " Cultivator" }, "Tree Cultivator" },
-    localised_description = { "?", { "", "A specialised facility for propagating ", { "entity-name." .. plant_name } }, "A specialised facility for propagating trees." },
+    localised_name = { "recipe-name.cultivator", plant_label },
+    localised_description = { "recipe-description.cultivator", plant_label },
     category = "organic-or-assembling",
     surface_conditions =
     {
@@ -318,7 +325,8 @@ local function create_quality_plant(plant_prototype, seed_prototype)
   local cultivator_recipe_recycling = {
     type = "recipe",
     name = cultivator_name .. "-recycling",
-    localised_name = { "?", { "", { "entity-name." .. plant_name }, " Cultivator Recycling" }, "Tree Cultivator Recycling" },
+    localised_name = { "recipe-name.cultivator-recycling", plant_label },
+    localised_description = { "recipe-description.cultivator-recycling", plant_label },
     icon = nil,
     --subgroup = item.subgroup,
     icons = {
@@ -388,8 +396,8 @@ local function create_quality_plant(plant_prototype, seed_prototype)
     name = "cultivate-" .. plant_name,
     icon = plant_icon,
     category = "cultivation-" .. plant_name,
-    localised_name = { "?", { "", "Cultivate ", { "entity-name." .. plant_name } }, "Cultivate Trees" },
-    localised_description = { "?", { "", "Cultivate ", { "entity-name." .. plant_name } }, "Cultivate Trees" },
+    localised_name = { "recipe-name.cultivate", plant_label },
+    localised_description = { "recipe-description.cultivate", plant_label },
     enabled = false,
     hidden = false,
     result_is_always_fresh = true,
@@ -410,8 +418,8 @@ local function create_quality_plant(plant_prototype, seed_prototype)
     name = "cultivate-space-" .. plant_name,
     icon = plant_icon,
     category = "space-cultivation",
-    localised_name = { "?", { "", "Cultivate ", { "entity-name." .. plant_name }, " ... in space!" }, "Cultivate Trees ... in space!" },
-    localised_description = { "?", { "", "Cultivate ", { "entity-name." .. plant_name }, " ... in space!" }, "Cultivate Trees ... in space!" },
+    localised_name = { "recipe-name.cultivate-space", plant_label },
+    localised_description = { "recipe-description.cultivate-space", plant_label },
     enabled = false,
     hidden = false,
     result_is_always_fresh = true,
@@ -438,8 +446,8 @@ local function create_quality_plant(plant_prototype, seed_prototype)
   local recipe_gmo = {
     type = "recipe",
     name = "gmo-" .. plant_name,
-    localised_name = { "?", { "", { "item-name." .. seed_name }, " Cultivator" }, " Symbiosis" },
-    localised_description = { "?", { "", "Treating ", { "item-name." .. seed_name }, " with a pentapod and spores may generate a better seed." }, " Symbiosis" },
+    localised_name = { "recipe-name.gmo", seed_label },
+    localised_description = { "recipe-description.gmo", seed_label },
     order = "d[organic-processing]-a[" .. seed_name .. "]",
     category = "organic",
     enabled = false,
